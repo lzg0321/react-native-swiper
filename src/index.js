@@ -630,6 +630,10 @@ export default class extends Component {
           onScrollBeginDrag={this.onScrollBegin}
           onMomentumScrollEnd={this.onScrollEnd}
           onScrollEndDrag={this.onScrollEndDrag}
+          scrollEventThrottle={this.props.onScroll ? 30 : 16}
+          onScroll={(event)=>{
+            this.props.onScroll && this.props.onScroll(event);
+          }}
           style={this.props.scrollViewStyle}>
           {pages}
         </ScrollView>
@@ -641,6 +645,9 @@ export default class extends Component {
         initialPage={this.props.loop ? this.state.index + 1 : this.state.index}
         onPageSelected={this.onScrollEnd}
         key={pages.length}
+        onPageScroll={(event)=>{
+          this.props.onScroll && this.props.onScroll(event);
+        }}
         style={[styles.wrapperAndroid, this.props.style]}>
         {pages}
       </ViewPagerAndroid>
